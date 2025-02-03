@@ -1,0 +1,5 @@
+title: "Oleander"
+description: "个人博客王章"
+remote_theme: qwtel/hydejack
+plugins:
+  - jekyll-remote-theme
