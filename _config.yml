@@ -1,5 +1,0 @@
-title: "oleander"
-description: "个人博客网站"
-remote_theme: qwtel/hydejack
-plugins:
-  - jekyll-remote-theme
