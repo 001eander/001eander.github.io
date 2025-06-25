@@ -2,7 +2,6 @@ title: 灼灼其华 # name of the site
 author: oleander # name of site's author
 email: 2024111155@stu.sufe.edu.cn # email of site's author
 description: > # description of the site (multiple lines allowed)
-  Conquer Expend Liberate
   记录自己的学习、思考和生活
 
 permalink: /:slug.html
