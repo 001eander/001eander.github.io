@@ -1,0 +1,22 @@
+entries:
+  - title: 相关信息
+    entries:
+      - title: 陶唐，现就读于上海财经大学
+        url: about
+
+  - title: 文章
+    post_list:
+      limit: 5
+      show_more: true
+      show_more_text: 详见存档
+      show_more_url: archive
+
+  # - title: posts by category
+  #   post_list:
+  #     category: example2
+  #     show_more: true
+  #     show_more_text: See more posts...
+  #     show_more_url: example2-archive.html
+
+  - title: rss
+    url: feed.xml
