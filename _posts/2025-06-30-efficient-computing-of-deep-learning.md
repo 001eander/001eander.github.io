@@ -11,3 +11,12 @@ layout: post
 
 ## 250630 第一课 Introduction
 
+1. LeNet 手写数字识别
+2. Perception 模仿人类大脑神经元
+3. Two-layer NN
+4. AlexNet
+5. ResNet
+
+从大到小：从实验室原型到成熟的过程
+
+

@@ -3,8 +3,6 @@ permalink: deepnest/qna/
 title: DeepNest SharkPal Q&A 准备
 author: oleander
 layout: post
-categories: 
-  - 商赛
 ---
 
 ## 漏斗设计与转化效率

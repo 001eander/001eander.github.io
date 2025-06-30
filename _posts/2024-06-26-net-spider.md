@@ -1,8 +1,0 @@
----
-permalink: /pots/spider/
-title: 网络爬虫
-author: oleander
-layout: post
----
-
-这里存放的是网络爬虫相关内容，包括知识。
