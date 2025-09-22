@@ -2,3 +2,6 @@ baseURL = 'https://001eander.github.io/'
 languageCode = 'zh-cn'
 title = '001eander的博客'
 theme = 'ananke'
+
+[caches.images]
+dir = ':cacheDir/images'
