@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>001eander的博客</title>
+    <link>https://001eander.github.io/</link>
+    <description>Recent content on 001eander的博客</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 22 Sep 2025 18:07:11 +0800</lastBuildDate>
+    <atom:link href="https://001eander.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一篇帖子！</title>
+      <link>https://001eander.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%B8%96%E5%AD%90/</link>
+      <pubDate>Mon, 22 Sep 2025 18:07:11 +0800</pubDate>
+      <guid>https://001eander.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%B8%96%E5%AD%90/</guid>
+      <description>&lt;h2 id=&#34;第一篇&#34;&gt;第一篇&lt;/h2&gt;&#xA;&lt;p&gt;这是我的第一篇帖子欸！&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
