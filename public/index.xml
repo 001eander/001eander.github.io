@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>001eander的博客</title>
-    <link>https://001eander.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on 001eander的博客</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 22 Sep 2025 18:07:11 +0800</lastBuildDate>
-    <atom:link href="https://001eander.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Sep 2025 18:35:18 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>第一篇帖子！</title>
-      <link>https://001eander.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%B8%96%E5%AD%90/</link>
-      <pubDate>Mon, 22 Sep 2025 18:07:11 +0800</pubDate>
-      <guid>https://001eander.github.io/posts/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%B8%96%E5%AD%90/</guid>
-      <description>&lt;h2 id=&#34;第一篇&#34;&gt;第一篇&lt;/h2&gt;&#xA;&lt;p&gt;这是我的第一篇帖子欸！&lt;/p&gt;</description>
+      <title>随感其一</title>
+      <link>http://localhost:1313/posts/%E9%9A%8F%E6%84%9F%E5%85%B6%E4%B8%80/</link>
+      <pubDate>Mon, 22 Sep 2025 18:35:18 +0800</pubDate>
+      <guid>http://localhost:1313/posts/%E9%9A%8F%E6%84%9F%E5%85%B6%E4%B8%80/</guid>
+      <description>&lt;p&gt;昨晚答应了一个人，说要多写点东西。今天作曲家课上讲乐理，对我来说实在是太枯燥了，遂整理一下博客站点，写点东西，兑现承诺。&lt;/p&gt;&#xA;&lt;p&gt;我不是一个特别会写东西的人，想法太跳脱。写成句子要么又臭又长，要么句与句之间逻辑联系太弱。&lt;/p&gt;&#xA;&lt;p&gt;我曾经想过，我写过的东西，让 AI 润色重写。试过一两次，效果不好。我的用词可能太晦涩隐晦了，AI 都理解不好，不能精准的表达出我的想法。&lt;/p&gt;&#xA;&lt;p&gt;随便讲讲最近的安排，我在尝试重塑生活方式。用 Forest 保持专注，用 Streaks 养成习惯，用 Keep 和小米运动健康辅助锻炼，用 GTD 追踪任务，用 Logseq 管理知识，用 Github 和 VSCode（maybe CP or Neovim）处理开发。老实说，有点累累的。而且我也没有没有完全整理好这个系统，记账财务这块还没有解决方案，最近这方面甚至出问题了。手机桌面乱乱的，电脑的文件系统也乱乱的。我想要找个机会重启一下，让它真正跑起来，但是不大方便……只能想办法一步一步的来。等等，国庆或许是个机会。等真的跑起来，我一定写一篇文章分享一下，一定。&lt;/p&gt;&#xA;&lt;p&gt;我觉得很难把握说心里话和喊口号的度，我实在太擅长骗自己了，我的生活悬浮在谎言中。以后一定写一篇文章谈谈谎言、承诺与幻想。&lt;/p&gt;&#xA;&lt;p&gt;就这样吧，乐理讲完了，故事也讲完了，要开始听音乐了。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
