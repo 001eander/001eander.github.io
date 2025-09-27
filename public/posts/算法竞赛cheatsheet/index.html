@@ -4,9 +4,289 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>001eander的博客</title>
+    <title>算法竞赛Cheatsheet | 001eander的博客</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="基础
+#include &lt;algorithm&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdlib&gt;
+#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+#define Heap priority_queue
+
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using pii = pair&lt;int, int&gt;;
+using pll = pair&lt;ll, ll&gt;;
+
+const int k_max = 0x3f3f3f3f;
+STL
+算法
+
+容器
+线性容器
+
+
+
+树状容器
+
+
+IO
+template &lt;typename Type&gt;
+inline Type read() {
+  Type x = 0, sign = 1;
+  char ch = getchar();
+  for (; ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar())
+    if (ch == &#39;-&#39;) sign = -1;
+  for (; &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar())
+    x = (x &lt;&lt; 1) &#43; (x &lt;&lt; 3) &#43; (ch ^ 48);
+  return sign * x;
+}
+std::ios::sync_with_stdio(false);
+std::cin.tie(nullptr);
+
+  
+      
+          算子
+          功能
+      
+  
+  
+      
+          dec
+          以十进制形式输出整数
+      
+      
+          hex
+          以十六进制形式输出整数
+      
+      
+          oct
+          以八进制形式输出整数
+      
+      
+          fixed
+          以普通小数形式输出浮点数
+      
+      
+          scientific
+          以科学计数法形式输出浮点数
+      
+      
+          left
+          左对齐，即在宽度不足时将填充字符添加到右边
+      
+      
+          right
+          右对齐，即在宽度不足时将填充字符添加到左边
+      
+      
+          setbase(b)
+          设置输出整数时的进制，b = 8、10 或 16
+      
+      
+          setw(w)
+          指定输出宽度为 w 个字符
+      
+      
+          setfill(c)
+          在指定输出宽度的情况下，输出的宽度不足时用字符 c 填充
+      
+      
+          setprecision(n)
+          设置输出浮点数的精度为 n
+      
+      
+          setiosflags(flag)
+          将某个输出格式标志置为 1
+      
+      
+          resetiosflags(flag)
+          将某个输出格式标志置为 0
+      
+  
+
+数据结构
+并查集
+class UFSet {
+ private:
+  vector&lt;size_t&gt; parent;
+
+ public:
+  UFSet(size_t n) : parent(n) {
+    for (size_t i = 0; i &lt; n; i&#43;&#43;) parent[i] = i;
+  }
+
+  size_t find(size_t x) {
+    if (parent[x] != x) parent[x] = find(parent[x]);
+    return parent[x];
+  }
+
+  void unite(size_t x, size_t y) { parent[find(x)] = find(y); }
+};
+树状数组
+inline size_t lowbit(size_t i) { return i &amp; -i; }
+template &lt;typename Type&gt;
+class BITree {
+ private:
+  vector&lt;Type&gt; tree;
+
+ public:
+  BITree(size_t n) : tree(n &#43; 1, 0) {}
+
+  void update(size_t i, Type x) {
+    for (; i &lt; tree.size(); i &#43;= lowbit(i)) tree[i] &#43;= x;
+  }
+
+  Type query(size_t i) {
+    Type sum = 0;
+    for (; i &gt; 0; i -= lowbit(i);) sum &#43;= tree[i];
+
+    return sum;
+  }
+};
+珂朵莉树
+template &lt;typename Type&gt;
+struct CTNode {
+  size_t left, right;
+  mutable Type value;
+  CTNode(size_t l, size_t r = 0, Type v = 0) : left(l), right(r), value(v) {}
+  bool operator&lt;(const CTNode&amp; other) const { return left &lt; other.left; }
+};
+
+template &lt;typename Type&gt;
+class CTree : public set&lt;CTNode&lt;Type&gt;&gt; {
+ public:
+  using set&lt;CTNode&lt;Type&gt;&gt;::set;
+  auto split(size_t pos) {
+    auto it = this-&gt;lower_bound(CTNode&lt;Type&gt;(pos));
+    if (it != this-&gt;end() &amp;&amp; it-&gt;left == pos) return it;
+    --it;
+    if (it-&gt;right &lt; pos) return this-&gt;end();
+    auto node = *it;
+    this-&gt;erase(it);
+    this-&gt;insert(CTNode&lt;Type&gt;(node.left, pos - 1, node.value));
+    return this-&gt;insert(CTNode&lt;Type&gt;(pos, node.right, node.value)).first;
+  }
+  void assign(size_t l, size_t r, Type v) {
+    auto itr = split(r &#43; 1), itl = split(l);
+    this-&gt;erase(itl, itr);
+    this-&gt;insert(CTNode&lt;Type&gt;(l, r, v));
+  }
+  Type query(size_t pos) {
+    auto it = this-&gt;upper_bound(CTNode&lt;Type&gt;(pos));
+    if (it == this-&gt;begin()) return Type();
+    --it;
+    return it-&gt;value;
+  }
+};
+图
+template &lt;typename Type&gt;
+struct Edge {
+  size_t from, to;
+  Type weight;
+
+  bool operator&lt;(const Edge&amp; other) const { return weight &lt; other.weight; }
+};
+
+template &lt;typename Type&gt;
+struct Graph {
+  size_t num_v, num_e;
+  vector&lt;set&lt;Edge&lt;Type&gt;&gt;&gt; edges;
+
+  Graph(size_t v, size_t e) : num_v(v), num_e(e), edges(v) {}
+};
+图论
+最短路
+template &lt;typename Type&gt;
+vector&lt;Type&gt; dijkstra(const Graph&lt;Type&gt;&amp; graph, size_t start) {
+  vector&lt;Type&gt; dist(graph.num_v, k_max);
+  dist[start] = 0;
+  Heap&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; heap;
+  heap.push({0, start});
+
+  while (!heap.empty()) {
+    auto [d, p] = heap.top();
+    heap.pop();
+    if (d &gt; dist[p]) continue;
+    for (auto e : graph.edges[p]) {
+      if (dist[e.to] &gt; dist[p] &#43; e.weight) {
+        dist[e.to] = dist[p] &#43; e.weight;
+        heap.push({dist[e.to], e.to});
+      }
+    }
+  }
+  return dist;
+}
+最小生成树
+template &lt;typename Type&gt;
+Type kruskal(const Graph&lt;Type&gt;&amp; graph) {
+  set&lt;Edge&lt;Type&gt;&gt; all_edges;
+  all_edges.reserve(graph.num_e);
+  for (int i = 0; i &lt; graph.num_v; i&#43;&#43;)
+    for (const auto&amp; e : graph.edges[i]) all_edges.insert(e);
+  UFSet uf(graph.num_v);
+  Type min_w = 0;
+  for (const auto&amp; e : all_edges) {
+    if (uf.find(e.from) != uf.find(e.to)) {
+      uf.unite(e.from, e.to);
+      min_w &#43;= e.weight;
+    }
+  }
+  return min_w;
+}
+动态规划
+01 背包
+for (int i = 0; i &lt; n; i&#43;&#43;) {
+  for (int j = capacity; j &gt;= weights[i]; j--) {
+    dp[j] = max(dp[j], dp[j - weights[i]] &#43; values[i]);
+  }
+}
+最长上升子序列
+for (int i = 1; i &lt;= m; i&#43;&#43;) 
+  for (int j = 1; j &lt;= n; j&#43;&#43;) 
+    if (text1[i - 1] == text2[j - 1]) 
+      dp[i][j] = dp[i - 1][j - 1] &#43; 1;
+    else 
+      dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+数学
+快速幂
+template &lt;typename Type&gt;
+Type fast_pow(Type base, Type exp, Type mod) {
+  Type result = 1;
+  base %= mod;
+  while (exp &gt; 0) {
+    if (exp &amp; 1) result = (result * base) % mod;
+    base = (base * base) % mod;
+    exp &gt;&gt;= 1;
+  }
+  return result;
+}
+埃氏筛
+template &lt;typename Type&gt;
+vector&lt;Type&gt; prime_filter(Type n) {
+  vector&lt;bool&gt; is_prime(n &#43; 1, true);
+  vector&lt;Type&gt; primes;
+  is_prime[0] = is_prime[1] = false;
+
+  for (Type i = 2; i &lt;= n; i&#43;&#43;) {
+    if (is_prime[i]) {
+      primes.push_back(i);
+      for (ll j = (ll)i * i; j &lt;= n; j &#43;= i) is_prime[j] = false;
+    }
+  }
+  return primes;
+}
+其它
+">
     <meta name="generator" content="Hugo 0.150.0">
     
     
@@ -30,27 +310,29 @@
     
 
     
-    
-      <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="001eander的博客" />
-      <link href="/posts/index.xml" rel="feed" type="application/rss+xml" title="001eander的博客" />
-      
-    
 
     
-      <link rel="canonical" href="https://001eander.github.io/posts/">
+      <link rel="canonical" href="https://001eander.github.io/posts/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9Bcheatsheet/">
     
 
-    <meta property="og:url" content="https://001eander.github.io/posts/">
+    <meta property="og:url" content="https://001eander.github.io/posts/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9Bcheatsheet/">
   <meta property="og:site_name" content="001eander的博客">
-  <meta property="og:title" content="Posts">
+  <meta property="og:title" content="算法竞赛Cheatsheet">
+  <meta property="og:description" content="基础 #include &lt;algorithm&gt; #include &lt;cstddef&gt; #include &lt;cstdlib&gt; #include &lt;iomanip&gt; #include &lt;iostream&gt; #include &lt;queue&gt; #include &lt;set&gt; #include &lt;utility&gt; #include &lt;vector&gt; #include &lt;string&gt; #define Heap priority_queue using namespace std; using ll = long long; using ull = unsigned long long; using pii = pair&lt;int, int&gt;; using pll = pair&lt;ll, ll&gt;; const int k_max = 0x3f3f3f3f; STL 算法 容器 线性容器 树状容器 IO template &lt;typename Type&gt; inline Type read() { Type x = 0, sign = 1; char ch = getchar(); for (; ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) if (ch == &#39;-&#39;) sign = -1; for (; &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) x = (x &lt;&lt; 1) &#43; (x &lt;&lt; 3) &#43; (ch ^ 48); return sign * x; } std::ios::sync_with_stdio(false); std::cin.tie(nullptr); 算子 功能 dec 以十进制形式输出整数 hex 以十六进制形式输出整数 oct 以八进制形式输出整数 fixed 以普通小数形式输出浮点数 scientific 以科学计数法形式输出浮点数 left 左对齐，即在宽度不足时将填充字符添加到右边 right 右对齐，即在宽度不足时将填充字符添加到左边 setbase(b) 设置输出整数时的进制，b = 8、10 或 16 setw(w) 指定输出宽度为 w 个字符 setfill(c) 在指定输出宽度的情况下，输出的宽度不足时用字符 c 填充 setprecision(n) 设置输出浮点数的精度为 n setiosflags(flag) 将某个输出格式标志置为 1 resetiosflags(flag) 将某个输出格式标志置为 0 数据结构 并查集 class UFSet { private: vector&lt;size_t&gt; parent; public: UFSet(size_t n) : parent(n) { for (size_t i = 0; i &lt; n; i&#43;&#43;) parent[i] = i; } size_t find(size_t x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; } void unite(size_t x, size_t y) { parent[find(x)] = find(y); } }; 树状数组 inline size_t lowbit(size_t i) { return i &amp; -i; } template &lt;typename Type&gt; class BITree { private: vector&lt;Type&gt; tree; public: BITree(size_t n) : tree(n &#43; 1, 0) {} void update(size_t i, Type x) { for (; i &lt; tree.size(); i &#43;= lowbit(i)) tree[i] &#43;= x; } Type query(size_t i) { Type sum = 0; for (; i &gt; 0; i -= lowbit(i);) sum &#43;= tree[i]; return sum; } }; 珂朵莉树 template &lt;typename Type&gt; struct CTNode { size_t left, right; mutable Type value; CTNode(size_t l, size_t r = 0, Type v = 0) : left(l), right(r), value(v) {} bool operator&lt;(const CTNode&amp; other) const { return left &lt; other.left; } }; template &lt;typename Type&gt; class CTree : public set&lt;CTNode&lt;Type&gt;&gt; { public: using set&lt;CTNode&lt;Type&gt;&gt;::set; auto split(size_t pos) { auto it = this-&gt;lower_bound(CTNode&lt;Type&gt;(pos)); if (it != this-&gt;end() &amp;&amp; it-&gt;left == pos) return it; --it; if (it-&gt;right &lt; pos) return this-&gt;end(); auto node = *it; this-&gt;erase(it); this-&gt;insert(CTNode&lt;Type&gt;(node.left, pos - 1, node.value)); return this-&gt;insert(CTNode&lt;Type&gt;(pos, node.right, node.value)).first; } void assign(size_t l, size_t r, Type v) { auto itr = split(r &#43; 1), itl = split(l); this-&gt;erase(itl, itr); this-&gt;insert(CTNode&lt;Type&gt;(l, r, v)); } Type query(size_t pos) { auto it = this-&gt;upper_bound(CTNode&lt;Type&gt;(pos)); if (it == this-&gt;begin()) return Type(); --it; return it-&gt;value; } }; 图 template &lt;typename Type&gt; struct Edge { size_t from, to; Type weight; bool operator&lt;(const Edge&amp; other) const { return weight &lt; other.weight; } }; template &lt;typename Type&gt; struct Graph { size_t num_v, num_e; vector&lt;set&lt;Edge&lt;Type&gt;&gt;&gt; edges; Graph(size_t v, size_t e) : num_v(v), num_e(e), edges(v) {} }; 图论 最短路 template &lt;typename Type&gt; vector&lt;Type&gt; dijkstra(const Graph&lt;Type&gt;&amp; graph, size_t start) { vector&lt;Type&gt; dist(graph.num_v, k_max); dist[start] = 0; Heap&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; heap; heap.push({0, start}); while (!heap.empty()) { auto [d, p] = heap.top(); heap.pop(); if (d &gt; dist[p]) continue; for (auto e : graph.edges[p]) { if (dist[e.to] &gt; dist[p] &#43; e.weight) { dist[e.to] = dist[p] &#43; e.weight; heap.push({dist[e.to], e.to}); } } } return dist; } 最小生成树 template &lt;typename Type&gt; Type kruskal(const Graph&lt;Type&gt;&amp; graph) { set&lt;Edge&lt;Type&gt;&gt; all_edges; all_edges.reserve(graph.num_e); for (int i = 0; i &lt; graph.num_v; i&#43;&#43;) for (const auto&amp; e : graph.edges[i]) all_edges.insert(e); UFSet uf(graph.num_v); Type min_w = 0; for (const auto&amp; e : all_edges) { if (uf.find(e.from) != uf.find(e.to)) { uf.unite(e.from, e.to); min_w &#43;= e.weight; } } return min_w; } 动态规划 01 背包 for (int i = 0; i &lt; n; i&#43;&#43;) { for (int j = capacity; j &gt;= weights[i]; j--) { dp[j] = max(dp[j], dp[j - weights[i]] &#43; values[i]); } } 最长上升子序列 for (int i = 1; i &lt;= m; i&#43;&#43;) for (int j = 1; j &lt;= n; j&#43;&#43;) if (text1[i - 1] == text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] &#43; 1; else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]); 数学 快速幂 template &lt;typename Type&gt; Type fast_pow(Type base, Type exp, Type mod) { Type result = 1; base %= mod; while (exp &gt; 0) { if (exp &amp; 1) result = (result * base) % mod; base = (base * base) % mod; exp &gt;&gt;= 1; } return result; } 埃氏筛 template &lt;typename Type&gt; vector&lt;Type&gt; prime_filter(Type n) { vector&lt;bool&gt; is_prime(n &#43; 1, true); vector&lt;Type&gt; primes; is_prime[0] = is_prime[1] = false; for (Type i = 2; i &lt;= n; i&#43;&#43;) { if (is_prime[i]) { primes.push_back(i); for (ll j = (ll)i * i; j &lt;= n; j &#43;= i) is_prime[j] = false; } } return primes; } 其它">
   <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-27T12:47:52+08:00">
+    <meta property="article:modified_time" content="2025-09-27T12:47:52+08:00">
 
-  <meta itemprop="name" content="Posts">
+  <meta itemprop="name" content="算法竞赛Cheatsheet">
+  <meta itemprop="description" content="基础 #include &lt;algorithm&gt; #include &lt;cstddef&gt; #include &lt;cstdlib&gt; #include &lt;iomanip&gt; #include &lt;iostream&gt; #include &lt;queue&gt; #include &lt;set&gt; #include &lt;utility&gt; #include &lt;vector&gt; #include &lt;string&gt; #define Heap priority_queue using namespace std; using ll = long long; using ull = unsigned long long; using pii = pair&lt;int, int&gt;; using pll = pair&lt;ll, ll&gt;; const int k_max = 0x3f3f3f3f; STL 算法 容器 线性容器 树状容器 IO template &lt;typename Type&gt; inline Type read() { Type x = 0, sign = 1; char ch = getchar(); for (; ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) if (ch == &#39;-&#39;) sign = -1; for (; &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) x = (x &lt;&lt; 1) &#43; (x &lt;&lt; 3) &#43; (ch ^ 48); return sign * x; } std::ios::sync_with_stdio(false); std::cin.tie(nullptr); 算子 功能 dec 以十进制形式输出整数 hex 以十六进制形式输出整数 oct 以八进制形式输出整数 fixed 以普通小数形式输出浮点数 scientific 以科学计数法形式输出浮点数 left 左对齐，即在宽度不足时将填充字符添加到右边 right 右对齐，即在宽度不足时将填充字符添加到左边 setbase(b) 设置输出整数时的进制，b = 8、10 或 16 setw(w) 指定输出宽度为 w 个字符 setfill(c) 在指定输出宽度的情况下，输出的宽度不足时用字符 c 填充 setprecision(n) 设置输出浮点数的精度为 n setiosflags(flag) 将某个输出格式标志置为 1 resetiosflags(flag) 将某个输出格式标志置为 0 数据结构 并查集 class UFSet { private: vector&lt;size_t&gt; parent; public: UFSet(size_t n) : parent(n) { for (size_t i = 0; i &lt; n; i&#43;&#43;) parent[i] = i; } size_t find(size_t x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; } void unite(size_t x, size_t y) { parent[find(x)] = find(y); } }; 树状数组 inline size_t lowbit(size_t i) { return i &amp; -i; } template &lt;typename Type&gt; class BITree { private: vector&lt;Type&gt; tree; public: BITree(size_t n) : tree(n &#43; 1, 0) {} void update(size_t i, Type x) { for (; i &lt; tree.size(); i &#43;= lowbit(i)) tree[i] &#43;= x; } Type query(size_t i) { Type sum = 0; for (; i &gt; 0; i -= lowbit(i);) sum &#43;= tree[i]; return sum; } }; 珂朵莉树 template &lt;typename Type&gt; struct CTNode { size_t left, right; mutable Type value; CTNode(size_t l, size_t r = 0, Type v = 0) : left(l), right(r), value(v) {} bool operator&lt;(const CTNode&amp; other) const { return left &lt; other.left; } }; template &lt;typename Type&gt; class CTree : public set&lt;CTNode&lt;Type&gt;&gt; { public: using set&lt;CTNode&lt;Type&gt;&gt;::set; auto split(size_t pos) { auto it = this-&gt;lower_bound(CTNode&lt;Type&gt;(pos)); if (it != this-&gt;end() &amp;&amp; it-&gt;left == pos) return it; --it; if (it-&gt;right &lt; pos) return this-&gt;end(); auto node = *it; this-&gt;erase(it); this-&gt;insert(CTNode&lt;Type&gt;(node.left, pos - 1, node.value)); return this-&gt;insert(CTNode&lt;Type&gt;(pos, node.right, node.value)).first; } void assign(size_t l, size_t r, Type v) { auto itr = split(r &#43; 1), itl = split(l); this-&gt;erase(itl, itr); this-&gt;insert(CTNode&lt;Type&gt;(l, r, v)); } Type query(size_t pos) { auto it = this-&gt;upper_bound(CTNode&lt;Type&gt;(pos)); if (it == this-&gt;begin()) return Type(); --it; return it-&gt;value; } }; 图 template &lt;typename Type&gt; struct Edge { size_t from, to; Type weight; bool operator&lt;(const Edge&amp; other) const { return weight &lt; other.weight; } }; template &lt;typename Type&gt; struct Graph { size_t num_v, num_e; vector&lt;set&lt;Edge&lt;Type&gt;&gt;&gt; edges; Graph(size_t v, size_t e) : num_v(v), num_e(e), edges(v) {} }; 图论 最短路 template &lt;typename Type&gt; vector&lt;Type&gt; dijkstra(const Graph&lt;Type&gt;&amp; graph, size_t start) { vector&lt;Type&gt; dist(graph.num_v, k_max); dist[start] = 0; Heap&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; heap; heap.push({0, start}); while (!heap.empty()) { auto [d, p] = heap.top(); heap.pop(); if (d &gt; dist[p]) continue; for (auto e : graph.edges[p]) { if (dist[e.to] &gt; dist[p] &#43; e.weight) { dist[e.to] = dist[p] &#43; e.weight; heap.push({dist[e.to], e.to}); } } } return dist; } 最小生成树 template &lt;typename Type&gt; Type kruskal(const Graph&lt;Type&gt;&amp; graph) { set&lt;Edge&lt;Type&gt;&gt; all_edges; all_edges.reserve(graph.num_e); for (int i = 0; i &lt; graph.num_v; i&#43;&#43;) for (const auto&amp; e : graph.edges[i]) all_edges.insert(e); UFSet uf(graph.num_v); Type min_w = 0; for (const auto&amp; e : all_edges) { if (uf.find(e.from) != uf.find(e.to)) { uf.unite(e.from, e.to); min_w &#43;= e.weight; } } return min_w; } 动态规划 01 背包 for (int i = 0; i &lt; n; i&#43;&#43;) { for (int j = capacity; j &gt;= weights[i]; j--) { dp[j] = max(dp[j], dp[j - weights[i]] &#43; values[i]); } } 最长上升子序列 for (int i = 1; i &lt;= m; i&#43;&#43;) for (int j = 1; j &lt;= n; j&#43;&#43;) if (text1[i - 1] == text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] &#43; 1; else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]); 数学 快速幂 template &lt;typename Type&gt; Type fast_pow(Type base, Type exp, Type mod) { Type result = 1; base %= mod; while (exp &gt; 0) { if (exp &amp; 1) result = (result * base) % mod; base = (base * base) % mod; exp &gt;&gt;= 1; } return result; } 埃氏筛 template &lt;typename Type&gt; vector&lt;Type&gt; prime_filter(Type n) { vector&lt;bool&gt; is_prime(n &#43; 1, true); vector&lt;Type&gt; primes; is_prime[0] = is_prime[1] = false; for (Type i = 2; i &lt;= n; i&#43;&#43;) { if (is_prime[i]) { primes.push_back(i); for (ll j = (ll)i * i; j &lt;= n; j &#43;= i) is_prime[j] = false; } } return primes; } 其它">
   <meta itemprop="datePublished" content="2025-09-27T12:47:52+08:00">
   <meta itemprop="dateModified" content="2025-09-27T12:47:52+08:00">
+  <meta itemprop="wordCount" content="772">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Posts">
+  <meta name="twitter:title" content="算法竞赛Cheatsheet">
+  <meta name="twitter:description" content="基础 #include &lt;algorithm&gt; #include &lt;cstddef&gt; #include &lt;cstdlib&gt; #include &lt;iomanip&gt; #include &lt;iostream&gt; #include &lt;queue&gt; #include &lt;set&gt; #include &lt;utility&gt; #include &lt;vector&gt; #include &lt;string&gt; #define Heap priority_queue using namespace std; using ll = long long; using ull = unsigned long long; using pii = pair&lt;int, int&gt;; using pll = pair&lt;ll, ll&gt;; const int k_max = 0x3f3f3f3f; STL 算法 容器 线性容器 树状容器 IO template &lt;typename Type&gt; inline Type read() { Type x = 0, sign = 1; char ch = getchar(); for (; ch &gt;= &#39;0&#39; &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) if (ch == &#39;-&#39;) sign = -1; for (; &#39;0&#39; &lt;= ch &amp;&amp; ch &lt;= &#39;9&#39;; ch = getchar()) x = (x &lt;&lt; 1) &#43; (x &lt;&lt; 3) &#43; (ch ^ 48); return sign * x; } std::ios::sync_with_stdio(false); std::cin.tie(nullptr); 算子 功能 dec 以十进制形式输出整数 hex 以十六进制形式输出整数 oct 以八进制形式输出整数 fixed 以普通小数形式输出浮点数 scientific 以科学计数法形式输出浮点数 left 左对齐，即在宽度不足时将填充字符添加到右边 right 右对齐，即在宽度不足时将填充字符添加到左边 setbase(b) 设置输出整数时的进制，b = 8、10 或 16 setw(w) 指定输出宽度为 w 个字符 setfill(c) 在指定输出宽度的情况下，输出的宽度不足时用字符 c 填充 setprecision(n) 设置输出浮点数的精度为 n setiosflags(flag) 将某个输出格式标志置为 1 resetiosflags(flag) 将某个输出格式标志置为 0 数据结构 并查集 class UFSet { private: vector&lt;size_t&gt; parent; public: UFSet(size_t n) : parent(n) { for (size_t i = 0; i &lt; n; i&#43;&#43;) parent[i] = i; } size_t find(size_t x) { if (parent[x] != x) parent[x] = find(parent[x]); return parent[x]; } void unite(size_t x, size_t y) { parent[find(x)] = find(y); } }; 树状数组 inline size_t lowbit(size_t i) { return i &amp; -i; } template &lt;typename Type&gt; class BITree { private: vector&lt;Type&gt; tree; public: BITree(size_t n) : tree(n &#43; 1, 0) {} void update(size_t i, Type x) { for (; i &lt; tree.size(); i &#43;= lowbit(i)) tree[i] &#43;= x; } Type query(size_t i) { Type sum = 0; for (; i &gt; 0; i -= lowbit(i);) sum &#43;= tree[i]; return sum; } }; 珂朵莉树 template &lt;typename Type&gt; struct CTNode { size_t left, right; mutable Type value; CTNode(size_t l, size_t r = 0, Type v = 0) : left(l), right(r), value(v) {} bool operator&lt;(const CTNode&amp; other) const { return left &lt; other.left; } }; template &lt;typename Type&gt; class CTree : public set&lt;CTNode&lt;Type&gt;&gt; { public: using set&lt;CTNode&lt;Type&gt;&gt;::set; auto split(size_t pos) { auto it = this-&gt;lower_bound(CTNode&lt;Type&gt;(pos)); if (it != this-&gt;end() &amp;&amp; it-&gt;left == pos) return it; --it; if (it-&gt;right &lt; pos) return this-&gt;end(); auto node = *it; this-&gt;erase(it); this-&gt;insert(CTNode&lt;Type&gt;(node.left, pos - 1, node.value)); return this-&gt;insert(CTNode&lt;Type&gt;(pos, node.right, node.value)).first; } void assign(size_t l, size_t r, Type v) { auto itr = split(r &#43; 1), itl = split(l); this-&gt;erase(itl, itr); this-&gt;insert(CTNode&lt;Type&gt;(l, r, v)); } Type query(size_t pos) { auto it = this-&gt;upper_bound(CTNode&lt;Type&gt;(pos)); if (it == this-&gt;begin()) return Type(); --it; return it-&gt;value; } }; 图 template &lt;typename Type&gt; struct Edge { size_t from, to; Type weight; bool operator&lt;(const Edge&amp; other) const { return weight &lt; other.weight; } }; template &lt;typename Type&gt; struct Graph { size_t num_v, num_e; vector&lt;set&lt;Edge&lt;Type&gt;&gt;&gt; edges; Graph(size_t v, size_t e) : num_v(v), num_e(e), edges(v) {} }; 图论 最短路 template &lt;typename Type&gt; vector&lt;Type&gt; dijkstra(const Graph&lt;Type&gt;&amp; graph, size_t start) { vector&lt;Type&gt; dist(graph.num_v, k_max); dist[start] = 0; Heap&lt;pii, vector&lt;pii&gt;, greater&lt;pii&gt;&gt; heap; heap.push({0, start}); while (!heap.empty()) { auto [d, p] = heap.top(); heap.pop(); if (d &gt; dist[p]) continue; for (auto e : graph.edges[p]) { if (dist[e.to] &gt; dist[p] &#43; e.weight) { dist[e.to] = dist[p] &#43; e.weight; heap.push({dist[e.to], e.to}); } } } return dist; } 最小生成树 template &lt;typename Type&gt; Type kruskal(const Graph&lt;Type&gt;&amp; graph) { set&lt;Edge&lt;Type&gt;&gt; all_edges; all_edges.reserve(graph.num_e); for (int i = 0; i &lt; graph.num_v; i&#43;&#43;) for (const auto&amp; e : graph.edges[i]) all_edges.insert(e); UFSet uf(graph.num_v); Type min_w = 0; for (const auto&amp; e : all_edges) { if (uf.find(e.from) != uf.find(e.to)) { uf.unite(e.from, e.to); min_w &#43;= e.weight; } } return min_w; } 动态规划 01 背包 for (int i = 0; i &lt; n; i&#43;&#43;) { for (int j = capacity; j &gt;= weights[i]; j--) { dp[j] = max(dp[j], dp[j - weights[i]] &#43; values[i]); } } 最长上升子序列 for (int i = 1; i &lt;= m; i&#43;&#43;) for (int j = 1; j &lt;= n; j&#43;&#43;) if (text1[i - 1] == text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] &#43; 1; else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]); 数学 快速幂 template &lt;typename Type&gt; Type fast_pow(Type base, Type exp, Type mod) { Type result = 1; base %= mod; while (exp &gt; 0) { if (exp &amp; 1) result = (result * base) % mod; base = (base * base) % mod; exp &gt;&gt;= 1; } return result; } 埃氏筛 template &lt;typename Type&gt; vector&lt;Type&gt; prime_filter(Type n) { vector&lt;bool&gt; is_prime(n &#43; 1, true); vector&lt;Type&gt; primes; is_prime[0] = is_prime[1] = false; for (Type i = 2; i &lt;= n; i&#43;&#43;) { if (is_prime[i]) { primes.push_back(i); for (ll j = (ll)i * i; j &lt;= n; j &#43;= i) is_prime[j] = false; } } return primes; } 其它">
 
       
     
@@ -58,9 +340,11 @@
   </head><body class="ma0 avenir bg-near-white production">
 
     
+   
+  
 
   <header>
-    <div class="pb3-m pb6-l bg-black">
+    <div class="bg-black">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l center items-center justify-between">
     <a href="/" class="f3 fw2 hover-white white-90 dib no-underline">
@@ -78,33 +362,32 @@
   </div>
 </nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          Posts
-        </h1>
-        
-      </div>
     </div>
   </header>
 
 
+
     <main class="pb7" role="main">
       
-  <article class="pa3 pa4-ns nested-copy-line-height">
-    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"></section>
-    <section class="flex-ns mt5 flex-wrap justify-around">
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">算法竞赛Cheatsheet</h1>
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9Bcheatsheet/" class="link black dim">
-        算法竞赛Cheatsheet
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <h2 id="基础">基础</h2>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2025-09-27T12:47:52+08:00">September 27, 2025</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><h2 id="基础">基础</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstddef&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
@@ -385,37 +668,23 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="其它">其它</h2>
 <p><img src="https://hackingcpp.com/cpp/lang/separate_compilation.png" alt="编译"></p>
-    </div>
-    <a href="/posts/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9Bcheatsheet/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
       
-        <div class="w-100 w-30-l mb4 relative bg-white">
-          <div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/%E9%9A%8F%E6%84%9F%E5%85%B6%E4%B8%80/" class="link black dim">
-        随感其一
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      <p>昨晚答应了一个人，说要多写点东西。今天作曲家课上讲乐理，对我来说实在是太枯燥了，遂整理一下博客站点，写点东西，兑现承诺。</p>
-<p>我不是一个特别会写东西的人，想法太跳脱。写成句子要么又臭又长，要么句与句之间逻辑联系太弱。</p>
-<p>我曾经想过，我写过的东西，让 AI 润色重写。试过一两次，效果不好。我的用词可能太晦涩隐晦了，AI 都理解不好，不能精准的表达出我的想法。</p>
-<p>随便讲讲最近的安排，我在尝试重塑生活方式。用 Forest 保持专注，用 Streaks 养成习惯，用 Keep 和小米运动健康辅助锻炼，用 GTD 追踪任务，用 Logseq 管理知识，用 Github 和 VSCode（maybe CP or Neovim）处理开发。老实说，有点累累的。而且我也没有没有完全整理好这个系统，记账财务这块还没有解决方案，最近这方面甚至出问题了。手机桌面乱乱的，电脑的文件系统也乱乱的。我想要找个机会重启一下，让它真正跑起来，但是不大方便……只能想办法一步一步的来。等等，国庆或许是个机会。等真的跑起来，我一定写一篇文章分享一下，一定。</p>
-<p>我觉得很难把握说心里话和喊口号的度，我实在太擅长骗自己了，我的生活悬浮在谎言中。以后一定写一篇文章谈谈谎言、承诺与幻想。</p>
-<p>就这样吧，乐理讲完了，故事也讲完了，要开始听音乐了。</p>
-    </div>
-    <a href="/posts/%E9%9A%8F%E6%84%9F%E5%85%B6%E4%B8%80/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-  </div>
-</div>
-
-        </div>
       
-    </section></article>
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
