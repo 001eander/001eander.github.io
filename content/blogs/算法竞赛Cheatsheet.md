@@ -38,23 +38,23 @@ const int k_max = 0x3f3f3f3f;
 
 ### 算法
 
-![标准库算法](https://hackingcpp.com/cpp/std/algorithms.png)
+![标准库算法](../../images/algorithms.png)
 
 ### 容器
 
 #### 线性容器
 
-![vector](https://hackingcpp.com/cpp/std/vector.png)
+![vector](../../images/vector.png)
 
-![deque](https://hackingcpp.com/cpp/std/deque.png)
+![deque](../../images/deque.png)
 
-![string](https://hackingcpp.com/cpp/std/string.png)
+![string](../../images/string.png)
 
 #### 树状容器
 
-![set](https://hackingcpp.com/cpp/std/set.png)
+![set](../../images/set.png)
 
-![map](https://hackingcpp.com/cpp/std/map.png)
+![map](../../images/map.png)
 
 ## IO
 
@@ -309,4 +309,4 @@ vector<Type> prime_filter(Type n) {
 
 ## 其它
 
-![编译](https://hackingcpp.com/cpp/lang/separate_compilation.png)
+![编译](../../images/compilation.png)

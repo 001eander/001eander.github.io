@@ -6,18 +6,18 @@ theme = 'mainroad'
 
 
 [Params]
-description = "001eander的博客"
 copyright = "001eander"
-readmore = true
-toc = true
-pager = true
-post_meta = ["author", "date", "categories"] 
-mainSections = ["posts", "blogs"]
-mathjax = true
-mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js"
-mathjaxConfig = "TeX-AMS-MML_HTMLorMML"
 customCSS = ["css/custom.css"]
 customJS = ["js/custom.js"]
+description = "001eander的博客"
+mainSections = ["posts", "blogs"]
+mathjax = true
+mathjaxConfig = "TeX-AMS-MML_HTMLorMML"
+mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js"
+pager = true
+post_meta = ["author", "date", "categories"]
+readmore = true
+toc = true
 
 [Params.logo]
 image = "img/logo.png"
@@ -25,7 +25,7 @@ title = "001eander"
 subtitle = "敢许人间第一流"
 
 [Params.style.vars]
-highlightColor = "#7aabf1"
+highlightColor = "#3c5d8fff"
 
 [Params.thumbnail]
 visibility = ["list", "post"]
@@ -38,7 +38,7 @@ widgets = ["recent", "categories", "taglist", "social"]
 
 [Params.widgets]
 recent_num = 5
-categories_counter = true 
+categories_counter = true
 tags_counter = false
 
 [Params.widgets.social]
@@ -51,4 +51,3 @@ url = "https://www.bing.com/search"
 [Params.widgets.search.input]
 name = "q1"
 pre = "site:"
-
