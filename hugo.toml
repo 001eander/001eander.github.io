@@ -1,7 +1,54 @@
-baseURL = 'https://001eander.github.io/'
+baseURL = '/'
 languageCode = 'zh-cn'
+defaultContentLanguage = "zh-cn"
 title = '001eander的博客'
-theme = 'ananke'
+theme = 'mainroad'
 
-[caches.images]
-dir = ':cacheDir/images'
+
+[Params]
+description = "001eander的博客"
+copyright = "001eander"
+readmore = true
+toc = true
+pager = true
+post_meta = ["author", "date", "categories"] 
+mainSections = ["posts", "blogs"]
+mathjax = true
+mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js"
+mathjaxConfig = "TeX-AMS-MML_HTMLorMML"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+
+[Params.logo]
+image = "img/logo.png"
+title = "001eander"
+subtitle = "敢许人间第一流"
+
+[Params.style.vars]
+highlightColor = "#7aabf1"
+
+[Params.thumbnail]
+visibility = ["list", "post"]
+
+[Params.sidebar]
+home = "right"
+list = "right"
+single = false
+widgets = ["recent", "categories", "taglist", "social"]
+
+[Params.widgets]
+recent_num = 5
+categories_counter = true 
+tags_counter = false
+
+[Params.widgets.social]
+github = "001eander"
+email = "2024111155@stu.sufe.edu.cn"
+
+[Params.widgets.search]
+url = "https://www.bing.com/search"
+
+[Params.widgets.search.input]
+name = "q1"
+pre = "site:"
+
