@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-cn">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>算法竞赛Cheatsheet - 001eander的博客</title>
+	<script>(function (d, e) { d[e] = d[e].replace("no-js", "js"); })(document.documentElement, "className");</script>
+	<meta name="description"
+		content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" >
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/%20favicon.ico">
+	
+</head>
+
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+<div class="logo logo--mixed">
+	<a class="logo__link" href="/"  title="001eander"  rel="home">
+		<div class="logo__item logo__imagebox">
+			<img class="logo__img" src="/img/logo.png">
+		</div><div class="logo__item logo__text">
+			<div class="logo__title">001eander</div>
+			<div class="logo__tagline">敢许人间第一流</div>
+		</div>
+	</a>
+</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+				
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">算法竞赛Cheatsheet</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime=" 2025-09-27T12:47:52&#43;08:00">September 27, 2025</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%E7%BB%8F%E9%AA%8C/" rel="category">经验</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">目录</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础">基础</a></li>
+    <li><a href="#stl">STL</a>
+      <ul>
+        <li><a href="#算法">算法</a></li>
+        <li><a href="#容器">容器</a></li>
+      </ul>
+    </li>
+    <li><a href="#io">IO</a></li>
+    <li><a href="#数据结构">数据结构</a>
+      <ul>
+        <li><a href="#并查集">并查集</a></li>
+        <li><a href="#树状数组">树状数组</a></li>
+        <li><a href="#珂朵莉树">珂朵莉树</a></li>
+        <li><a href="#图">图</a></li>
+      </ul>
+    </li>
+    <li><a href="#图论">图论</a>
+      <ul>
+        <li><a href="#最短路">最短路</a></li>
+        <li><a href="#最小生成树">最小生成树</a></li>
+      </ul>
+    </li>
+    <li><a href="#动态规划">动态规划</a>
+      <ul>
+        <li><a href="#01-背包">01 背包</a></li>
+        <li><a href="#最长上升子序列">最长上升子序列</a></li>
+      </ul>
+    </li>
+    <li><a href="#数学">数学</a>
+      <ul>
+        <li><a href="#快速幂">快速幂</a></li>
+        <li><a href="#埃氏筛">埃氏筛</a></li>
+      </ul>
+    </li>
+    <li><a href="#其它">其它</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="基础">基础</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstddef&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iomanip&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;utility&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define Heap priority_queue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> ll <span style="color:#f92672">=</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> ull <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> pii <span style="color:#f92672">=</span> pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> pll <span style="color:#f92672">=</span> pair<span style="color:#f92672">&lt;</span>ll, ll<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> k_max <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3f3f3f3f</span>;
+</span></span></code></pre></div><h2 id="stl">STL</h2>
+<h3 id="算法">算法</h3>
+<p><img src="https://hackingcpp.com/cpp/std/algorithms.png" alt="标准库算法"></p>
+<h3 id="容器">容器</h3>
+<h4 id="线性容器">线性容器</h4>
+<p><img src="https://hackingcpp.com/cpp/std/vector.png" alt="vector"></p>
+<p><img src="https://hackingcpp.com/cpp/std/deque.png" alt="deque"></p>
+<p><img src="https://hackingcpp.com/cpp/std/string.png" alt="string"></p>
+<h4 id="树状容器">树状容器</h4>
+<p><img src="https://hackingcpp.com/cpp/std/set.png" alt="set"></p>
+<p><img src="https://hackingcpp.com/cpp/std/map.png" alt="map"></p>
+<h2 id="io">IO</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">inline</span> Type read() {
+</span></span><span style="display:flex;"><span>  Type x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, sign <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> ch <span style="color:#f92672">=</span> getchar();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (; ch <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span>; ch <span style="color:#f92672">=</span> getchar())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (ch <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>) sign <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (; <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">&lt;=</span> ch <span style="color:#f92672">&amp;&amp;</span> ch <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;9&#39;</span>; ch <span style="color:#f92672">=</span> getchar())
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> (x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> (x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> (ch <span style="color:#f92672">^</span> <span style="color:#ae81ff">48</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> sign <span style="color:#f92672">*</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>ios<span style="color:#f92672">::</span>sync_with_stdio(false);
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cin.tie(<span style="color:#66d9ef">nullptr</span>);
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th style="text-align: right">算子</th>
+          <th>功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right"><code>dec</code></td>
+          <td>以十进制形式输出整数</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>hex</code></td>
+          <td>以十六进制形式输出整数</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>oct</code></td>
+          <td>以八进制形式输出整数</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>fixed</code></td>
+          <td>以普通小数形式输出浮点数</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>scientific</code></td>
+          <td>以科学计数法形式输出浮点数</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>left</code></td>
+          <td>左对齐，即在宽度不足时将填充字符添加到右边</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>right</code></td>
+          <td>右对齐，即在宽度不足时将填充字符添加到左边</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>setbase(b)</code></td>
+          <td>设置输出整数时的进制，<code>b</code> = 8、10 或 16</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>setw(w)</code></td>
+          <td>指定输出宽度为 <code>w</code> 个字符</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>setfill(c)</code></td>
+          <td>在指定输出宽度的情况下，输出的宽度不足时用字符 <code>c</code> 填充</td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>setprecision(n)</code></td>
+          <td>设置输出浮点数的精度为 <code>n</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>setiosflags(flag)</code></td>
+          <td>将某个输出格式标志置为 <code>1</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: right"><code>resetiosflags(flag)</code></td>
+          <td>将某个输出格式标志置为 <code>0</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="数据结构">数据结构</h2>
+<h3 id="并查集">并查集</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UFSet</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span>size_t<span style="color:#f92672">&gt;</span> parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  UFSet(size_t n) <span style="color:#f92672">:</span> parent(n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) parent[i] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  size_t <span style="color:#a6e22e">find</span>(size_t x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (parent[x] <span style="color:#f92672">!=</span> x) parent[x] <span style="color:#f92672">=</span> find(parent[x]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> parent[x];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">unite</span>(size_t x, size_t y) { parent[find(x)] <span style="color:#f92672">=</span> find(y); }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="树状数组">树状数组</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">inline</span> size_t <span style="color:#a6e22e">lowbit</span>(size_t i) { <span style="color:#66d9ef">return</span> i <span style="color:#f92672">&amp;</span> <span style="color:#f92672">-</span>i; }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BITree</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span> tree;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  BITree(size_t n) <span style="color:#f92672">:</span> tree(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(size_t i, Type x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (; i <span style="color:#f92672">&lt;</span> tree.size(); i <span style="color:#f92672">+=</span> lowbit(i)) tree[i] <span style="color:#f92672">+=</span> x;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Type <span style="color:#a6e22e">query</span>(size_t i) {
+</span></span><span style="display:flex;"><span>    Type sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (; i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">-=</span> lowbit(i);) sum <span style="color:#f92672">+=</span> tree[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="珂朵莉树">珂朵莉树</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">CTNode</span> {
+</span></span><span style="display:flex;"><span>  size_t left, right;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">mutable</span> Type value;
+</span></span><span style="display:flex;"><span>  CTNode(size_t l, size_t r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, Type v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> left(l), right(r), value(v) {}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;</span>(<span style="color:#66d9ef">const</span> CTNode<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> left <span style="color:#f92672">&lt;</span> other.left; }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CTree</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> set<span style="color:#f92672">&lt;</span>CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&gt;</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">using</span> set<span style="color:#f92672">&lt;</span>CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&gt;::</span>set;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">auto</span> <span style="color:#a6e22e">split</span>(size_t pos) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>lower_bound(CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span>(pos));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">!=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>end() <span style="color:#f92672">&amp;&amp;</span> it<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> pos) <span style="color:#66d9ef">return</span> it;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">--</span>it;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (it<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">&lt;</span> pos) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>end();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> node <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>it;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>erase(it);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>insert(CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span>(node.left, pos <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, node.value));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>insert(CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span>(pos, node.right, node.value)).first;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">assign</span>(size_t l, size_t r, Type v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> itr <span style="color:#f92672">=</span> split(r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>), itl <span style="color:#f92672">=</span> split(l);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>erase(itl, itr);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>insert(CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span>(l, r, v));
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  Type <span style="color:#a6e22e">query</span>(size_t pos) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>upper_bound(CTNode<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span>(pos));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (it <span style="color:#f92672">==</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>begin()) <span style="color:#66d9ef">return</span> Type();
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">--</span>it;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> it<span style="color:#f92672">-&gt;</span>value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="图">图</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Edge</span> {
+</span></span><span style="display:flex;"><span>  size_t from, to;
+</span></span><span style="display:flex;"><span>  Type weight;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;</span>(<span style="color:#66d9ef">const</span> Edge<span style="color:#f92672">&amp;</span> other) <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> weight <span style="color:#f92672">&lt;</span> other.weight; }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Graph</span> {
+</span></span><span style="display:flex;"><span>  size_t num_v, num_e;
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span>set<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&gt;&gt;</span> edges;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Graph(size_t v, size_t e) <span style="color:#f92672">:</span> num_v(v), num_e(e), edges(v) {}
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="图论">图论</h2>
+<h3 id="最短路">最短路</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span> dijkstra(<span style="color:#66d9ef">const</span> Graph<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&amp;</span> graph, size_t start) {
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span> dist(graph.num_v, k_max);
+</span></span><span style="display:flex;"><span>  dist[start] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  Heap<span style="color:#f92672">&lt;</span>pii, vector<span style="color:#f92672">&lt;</span>pii<span style="color:#f92672">&gt;</span>, greater<span style="color:#f92672">&lt;</span>pii<span style="color:#f92672">&gt;&gt;</span> heap;
+</span></span><span style="display:flex;"><span>  heap.push({<span style="color:#ae81ff">0</span>, start});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>heap.empty()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> [d, p] <span style="color:#f92672">=</span> heap.top();
+</span></span><span style="display:flex;"><span>    heap.pop();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (d <span style="color:#f92672">&gt;</span> dist[p]) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> e : graph.edges[p]) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (dist[e.to] <span style="color:#f92672">&gt;</span> dist[p] <span style="color:#f92672">+</span> e.weight) {
+</span></span><span style="display:flex;"><span>        dist[e.to] <span style="color:#f92672">=</span> dist[p] <span style="color:#f92672">+</span> e.weight;
+</span></span><span style="display:flex;"><span>        heap.push({dist[e.to], e.to});
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> dist;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="最小生成树">最小生成树</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>Type kruskal(<span style="color:#66d9ef">const</span> Graph<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&amp;</span> graph) {
+</span></span><span style="display:flex;"><span>  set<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;&gt;</span> all_edges;
+</span></span><span style="display:flex;"><span>  all_edges.reserve(graph.num_e);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> graph.num_v; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> e : graph.edges[i]) all_edges.insert(e);
+</span></span><span style="display:flex;"><span>  UFSet <span style="color:#a6e22e">uf</span>(graph.num_v);
+</span></span><span style="display:flex;"><span>  Type min_w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> e : all_edges) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (uf.find(e.from) <span style="color:#f92672">!=</span> uf.find(e.to)) {
+</span></span><span style="display:flex;"><span>      uf.unite(e.from, e.to);
+</span></span><span style="display:flex;"><span>      min_w <span style="color:#f92672">+=</span> e.weight;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> min_w;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="动态规划">动态规划</h2>
+<h3 id="01-背包">01 背包</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> capacity; j <span style="color:#f92672">&gt;=</span> weights[i]; j<span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>    dp[j] <span style="color:#f92672">=</span> max(dp[j], dp[j <span style="color:#f92672">-</span> weights[i]] <span style="color:#f92672">+</span> values[i]);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="最长上升子序列">最长上升子序列</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> m; i<span style="color:#f92672">++</span>) 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;=</span> n; j<span style="color:#f92672">++</span>) 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (text1[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> text2[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]) 
+</span></span><span style="display:flex;"><span>      dp[i][j] <span style="color:#f92672">=</span> dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> 
+</span></span><span style="display:flex;"><span>      dp[i][j] <span style="color:#f92672">=</span> max(dp[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>][j], dp[i][j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]);
+</span></span></code></pre></div><h2 id="数学">数学</h2>
+<h3 id="快速幂">快速幂</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>Type fast_pow(Type base, Type exp, Type mod) {
+</span></span><span style="display:flex;"><span>  Type result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  base <span style="color:#f92672">%=</span> mod;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (exp <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (exp <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) result <span style="color:#f92672">=</span> (result <span style="color:#f92672">*</span> base) <span style="color:#f92672">%</span> mod;
+</span></span><span style="display:flex;"><span>    base <span style="color:#f92672">=</span> (base <span style="color:#f92672">*</span> base) <span style="color:#f92672">%</span> mod;
+</span></span><span style="display:flex;"><span>    exp <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="埃氏筛">埃氏筛</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Type<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span> prime_filter(Type n) {
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> is_prime(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, true);
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span>Type<span style="color:#f92672">&gt;</span> primes;
+</span></span><span style="display:flex;"><span>  is_prime[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> is_prime[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (Type i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (is_prime[i]) {
+</span></span><span style="display:flex;"><span>      primes.push_back(i);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> (ll j <span style="color:#f92672">=</span> (ll)i <span style="color:#f92672">*</span> i; j <span style="color:#f92672">&lt;=</span> n; j <span style="color:#f92672">+=</span> i) is_prime[j] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> primes;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="其它">其它</h2>
+<p><img src="https://hackingcpp.com/cpp/lang/separate_compilation.png" alt="编译"></p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/%20tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" rel="tag">算法竞赛</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/blogs/%E6%88%91%E7%9A%84%E6%95%B0%E5%AD%97%E5%B7%A5%E5%85%B7%E7%AE%B1/" rel="next">
+			<span class="pager__subtitle">下一篇&thinsp;»</span>
+			<p class="pager__title">我的数字工具箱</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2025 001eander.
+			<span class="footer__copyright-credits">基于 <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> 引擎和 <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> 主题</span>
+		</div>
+	</div>
+</footer>
+	</div>
+	<script async defer src="/%20js/menu.js"></script>
+	<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+
+</html>
